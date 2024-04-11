@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>족태음비경</title>
+<style>
+    .container {
+    position: relative;
+    width: 1324px; /* 이미지의 원본 너비로 설정 */
+    height: 768px; /* 이미지의 원본 높이로 설정 */
+    margin: 0 auto; /* 페이지 중앙 정렬 */
+    }
+
+    img {
+    width: 1024px; /* 이미지의 원본 너비로 설정 */
+    height: 768px; /* 이미지의 원본 높이로 설정 */
+    display: block; /* 이미지가 컨테이너를 꽉 채우도록 */
+    }
+    .acupoint {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .modal {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        z-index: 1000;
+        position: absolute;
+        width: auto; /* 너비를 자동으로 조절합니다. */
+        max-width: 50%; /* 최대 너비를 화면 너비의 50%로 설정합니다. */
+        overflow-y: auto;
+        display: none;
+    }
+    /* 모달 내부 텍스트 스타일 */
+    .modal-content {
+        font-size: 16px; /* 글꼴 크기를 조정합니다. */
+        line-height: 1.6; /* 줄 간격을 조정합니다. */
+    }
+    button {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .modal.active {
+        display: block;
+    }
+    .modal img {
+    max-width: 100%; /* 이미지가 모달 너비를 초과하지 않도록 설정 */
+    max-height: 400px; /* 이미지의 최대 높이를 제한 */
+    display: block; /* 이미지를 블록 요소로 설정하여 줄바꿈 */
+    margin: 0 auto; /* 이미지를 모달 중앙에 위치시킴 */
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="img_2.jpg" alt="족태음비경">
+    <!-- 점 위치를 지정할 div들 -->
+    <div class="acupoint" style="top: 85%; left: 44.5%;" onclick="openModal('12', event);"></div>
+    <div class="acupoint" style="top: 81%; left: 41.5%;" onclick="openModal('13', event);"></div>
+    <div class="acupoint" style="top: 58%; left: 42.5%;" onclick="openModal('14', event);"></div>
+    <div class="acupoint" style="top: 52.3%; left: 42.3%;" onclick="openModal('15', event);"></div>
+    <div class="acupoint" style="top: 40.3%; left: 42%;" onclick="openModal('16', event);"></div>
+    <div class="acupoint" style="top: 23%; left: 38.7%;" onclick="openModal('17', event);"></div>
+    <div class="acupoint" style="top: 19%; left: 38.7%;" onclick="openModal('18', event);"></div>
+    <div class="acupoint" style="top: 15.5%; left: 38.7%;" onclick="openModal('19', event);"></div>
+    <div class="acupoint" style="top: 11.5%; left: 38.7%;" onclick="openModal('20', event);"></div>
+    <div class="acupoint" style="top: 25%; left: 35%;" onclick="openModal('21', event);"></div>
+    <div id="modal" class="modal">
+        <div id="modal-content"></div>
+        <button onclick="closeModal();">닫기</button>
+    </div>
+</div>
+<script>
+const acupoints = {
+        "12": {
+            description: `SP12 충문 (衝門)
+        부위: 샅부위(groin region), 샅고랑 주름(inguinal crease) 위, 넙다리동맥(femoral artery)의 가쪽.
+        취혈: 曲骨(CV2)과 같은 높이, 府舍(SP13)의 아래안쪽에서 취혈한다.
+        침구법: 직자 0.5～0.7寸 (동맥을 피하여 침입), 사자 0.5～1寸`,
+            imgSrc: ""
+        },
+        "13": {
+            description: `SP13 부사 (府舍)
+        부위: 아랫배, 배꼽(umbilicus) 중심에서 아래쪽으로 4.3寸, 앞정중선(anterior median line)에서 가쪽으로 4寸.
+        침구법: 직자 0.5～1寸, 사자 0.5～1寸`,
+            imgSrc: ""
+        },
+        "14": {
+            description: `SP14 복결 (腹結)
+        부위: 아랫배, 배꼽(umbilicus) 중심에서 아래쪽으로 1.3寸, 앞정중선(anterior median line)에서 가쪽으로 4寸.
+        침구법: 직자 0.5～1寸, 사자 0.5～1寸`,
+            imgSrc: ""
+        },
+        "15": {
+            description: `SP15 대횡 (大橫)
+        부위: 윗배, 배꼽(umbilicus) 중심에서 가쪽으로 4寸.
+        침구법: 직자 0.5～1寸, 사자 0.7～1.5寸, 횡침 2～2.5寸, 회충증 치료시는 배꼽 중심을 향해 횡침한다.`,
+            imgSrc: ""
+        },
+        "16": {
+            description: `SP16 복애 (腹哀)
+        부위: 윗배, 배꼽(umbilicus) 중심에서 위쪽으로 3寸, 앞정중선(anterior median line)에서 가쪽으로 4寸.
+        침구법: 직자 0.5～1寸, 사자 0.7～1寸`,
+            imgSrc: ""
+        },
+        "17": {
+            description: `SP17 식두 (食竇)
+        부위: 앞가슴부위, 다섯째 갈비사이공간(the 5th intercostal space), 앞정중선(anterior median line)에서 가쪽으로 6寸.
+        침구법: 직자 0.2～0.3寸 (깊게 침입하지 않음), 사자 0.3～0.4寸`,
+            imgSrc: ""
+        },
+        "18": {
+            description: `SP18 천계 (天谿)
+        부위: 앞가슴부위, 넷째 갈비사이공간(the 4th intercostal space), 앞정중선(anterior median line)에서 가쪽으로 6寸.
+        침구법: 직자 0.2～0.3寸 (깊게 침입하지 않음), 사자 0.3～0.5寸`,
+            imgSrc: ""
+        },
+        "19": {
+            description: `SP19 흉향 (胸鄕)
+        부위: 앞가슴부위, 셋째 갈비사이공간(the 3rd intercostal space), 앞정중선(anterior median line)에서 가쪽으로 6寸.
+        침구법: 직자 0.2～0.3寸 (깊게 침입하지 않음), 사자 0.3～0.5寸`,
+            imgSrc: ""
+        },
+        "20": {
+            description: `SP20 주영 (周榮)
+        부위: 앞가슴부위, 둘째 갈비사이공간(the 2nd intercostal space), 앞정중선(anterior median line)에서 가쪽으로 6寸.
+        침구법: 직자 0.2～0.4寸, 사자 0.3～0.5寸`,
+            imgSrc: ""
+        },
+        "21": {
+            description: `SP21 대포 (大包)
+        부위: 가쪽가슴부위, 여섯째 갈비사이공간(the 6th intercostal space), 중간겨드랑선(midaxillary line) 위.
+        취혈: 옆으로 누워 팔을 외전시켰을 때, 중간겨드랑선과 여섯째 갈비사이공간이 만나는 곳에서 취혈한다.
+        침구법: 직자 0.2～0.3寸 (깊게 침입하지 않음), 사자 0.3～0.4寸`,
+            imgSrc: "2_21.jpg"
+        }
+        };
+
+
+        function openModal(id, event) {
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const acupoint = event.target; // 클릭된 경락 점 요소
+        const acupointData = acupoints[id];
+
+        // 이미지 태그를 포함할 수 있는 조건을 추가합니다.
+        let imageTag = '';
+        if (acupointData.imgSrc) {
+            imageTag = `<img src="${acupointData.imgSrc}" alt="경락 점 ${id}" style="max-width: 100%; height: auto;">`;
+        }
+
+        // 이미지 태그와 설명을 모달에 추가합니다.
+        modalContent.innerHTML = `
+            <p>${acupointData.description.replace(/\n/g, '<br>')}</p>
+            ${imageTag}`;
+
+        // 클릭된 경락 점 위치를 가져옵니다.
+        const acupointRect = acupoint.getBoundingClientRect();
+
+        // 모달을 경락 점 바로 아래에 위치시킵니다.
+        modal.style.top = `${acupointRect.bottom + window.scrollY}px`;
+        modal.style.left = `${acupointRect.left + window.scrollX}px`;
+
+        modal.classList.add('active');
+}
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active')
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+</script>
+</body>
+</html>
